@@ -9,7 +9,7 @@
 import { OIcon } from '@oruga-ui/oruga-next';
 
 import type { Player } from 'boardgame-web-common';
-import { CahGamePhase, type CahGamePublicState, type CahGameSettings } from 'cah-back';
+import { CahGamePhase, type CahGamePublicState, type CahGameSettings } from '../domain';
 import { computed, type PropType } from 'vue';
 
 const status = computed(() => {

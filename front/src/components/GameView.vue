@@ -55,7 +55,7 @@ import { useI18n } from 'vue-i18n';
 import { type Game } from 'boardgame-web-common';
 import type { GameAction } from 'boardgame-web-common';
 
-import { answers, type CahDrawCardsAction, CahGamePhase, cahPlayerCardsCount, questions, WordCase, type CahGamePublicState, type CahPrivatePlayerState, type CahSendAnswersAction, type PlayerAnswers, type QuestionPlaceHolder, type CahGameSettings, type CahVoteForAnswerAction, type EndRoundAction } from "cah-back";
+import { answers, type CahDrawCardsAction, CahGamePhase, cahPlayerCardsCount, questions, WordCase, type CahGamePublicState, type CahPrivatePlayerState, type CahSendAnswersAction, type PlayerAnswers, type QuestionPlaceHolder, type CahGameSettings, type CahVoteForAnswerAction, type EndRoundAction } from '../domain';
 
 const oruga = useOruga();
 

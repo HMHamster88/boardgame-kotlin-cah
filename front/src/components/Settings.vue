@@ -18,7 +18,7 @@ import { OField, OInput, OSwitch } from '@oruga-ui/oruga-next';
 import { type PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { GameAction } from 'boardgame-web-common';
-import type { CahGameSettings } from 'cah-back';
+import type { CahGameSettings } from '../domain';
 
 const { t } = useI18n({
     locale: 'en',

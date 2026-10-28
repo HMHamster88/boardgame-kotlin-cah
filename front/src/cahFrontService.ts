@@ -13,6 +13,9 @@ export class CatanFrontService implements GameFrontService {
     gameViewComponent: Component = CahGameView
     playerComponent: Component | undefined = PlayerComponent
     statisticsComponent: Component | undefined = undefined
+    playerSettingsComponent: Component | undefined = undefined
+    createOrMigratePlayerGameSettings = undefined
+    createOrMigratePlayerGameInstanceSettings = undefined
     canAddBot: boolean = true
     localization: any = {
         en: {
@@ -27,8 +30,8 @@ export class CatanFrontService implements GameFrontService {
         }
     }
     gameStaticSettings = {
-        minPlayers: 3,
-        maxPlayers: 10
+        minPlayers: 2,
+        maxPlayers: 6
     }
 
 }
