@@ -11,8 +11,20 @@ front/            Vue Module Federation remote (copied from boardgame-web-cah/fr
 
 ## Status
 
-Scaffold: `front/` copied; the Kotlin module is not created yet and the front does not compile until
-the domain extraction below is done.
+Implemented: `back/` — full CAH rules (start, answers, voting, points, draw, round end, winners,
+bots), texts as resources (`texts/questions.json`, `texts/meta.json`), tests.
+
+Verified: `:back:test` and the end-to-end protocol scenario through the launcher.
+
+Pending: `front/src/domain` extraction (the copied front still needs the texts/enums moved before the
+old `cah-back` TS import can be removed).
+
+## Build / test
+
+```bash
+gradle :back:test
+gradle :back:jar        # -> back/build/libs/back-<version>.jar
+```
 
 ## Front copy TODO
 
