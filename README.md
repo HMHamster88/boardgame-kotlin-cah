@@ -26,6 +26,18 @@ gradle :back:test
 gradle :back:jar        # -> back/build/libs/back-<version>.jar
 ```
 
+## Release packaging
+
+```bash
+npm run build-front     # -> front/dist
+gradle :back:releaseZip # -> back/build/dist/cah.zip
+```
+
+The asset is `back/cah.jar` (classes + `classes.dex` + texts/service) and `front/**`. It is named
+`cah.zip` on purpose: the core installs a game asset into `games-modules/<asset-name>/`, so the
+directory (and therefore the front URL) stays stable across versions; the version lives in the tag
+and in `version.properties`.
+
 ## Front copy TODO
 
 The front imports the card/question texts (`answers`, `questions`) and
