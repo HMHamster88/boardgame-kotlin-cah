@@ -26,17 +26,32 @@ gradle :back:test
 gradle :back:jar        # -> back/build/libs/back-<version>.jar
 ```
 
+## Development build
+
+```bash
+gradle devBuild         # :back:generateTs + npm run build-front + :back:jar
+gradle devFront         # front only (-> front/dist)
+```
+
+The launcher's `DEV=true` watcher reloads the module when `back/build/libs/back-<version>.jar`
+changes and copies `front/dist` for the front. Requires `npm` on `PATH`.
+
+IntelliJ IDEA: the shared **Build CAH (dev)** run configuration (`.idea/runConfigurations`) runs
+`devBuild`.
+
 ## Release packaging
 
 ```bash
-npm run build-front     # -> front/dist
-gradle :back:releaseZip # -> back/build/dist/cah.zip
+gradle releaseBuild     # :devFront + :back:releaseZip -> back/build/dist/cah.zip
+gradle :back:releaseZip # same, but assumes front/dist is already built
 ```
 
 The asset is `back/cah.jar` (classes + `classes.dex` + texts/service) and `front/**`. It is named
 `cah.zip` on purpose: the core installs a game asset into `games-modules/<asset-name>/`, so the
 directory (and therefore the front URL) stays stable across versions; the version lives in the tag
 and in `version.properties`.
+
+IntelliJ IDEA: the shared **Build CAH release** run configuration runs `releaseBuild`.
 
 ## TypeScript model codegen
 

@@ -115,6 +115,8 @@ val releaseZip = tasks.register<Zip>("releaseZip") {
     group = "release"
     description = "Packages the CAH module for a GitHub release"
     dependsOn(dualJar)
+    // The asset contains front/**, so build it first (root :devFront = generateTs + npm build-front).
+    dependsOn(":devFront")
     archiveFileName.set("cah.zip")
     destinationDirectory.set(layout.buildDirectory.dir("dist"))
     from(layout.buildDirectory.dir("release/back")) { into("back") }
