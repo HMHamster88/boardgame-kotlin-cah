@@ -39,6 +39,18 @@ changes and copies `front/dist` for the front. Requires `npm` on `PATH`.
 IntelliJ IDEA: the shared **Build CAH (dev)** run configuration (`.idea/runConfigurations`) runs
 `devBuild`.
 
+## Version
+
+`version = "0.1.0"` in `build.gradle.kts` drives the plugin jar name, the `version.properties` inside
+the jar, and the `cah-<version>.zip` release asset. Override it for a release:
+
+```bash
+gradle releaseBuild "-PcahVersion=0.2.0"
+```
+
+The shared **Build CAH release** IDEA configuration passes `-PcahVersion=0.2.0`; update that value
+when bumping the version (or clear it to use the Gradle default).
+
 ## Release packaging
 
 ```bash
