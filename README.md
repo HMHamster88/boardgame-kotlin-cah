@@ -38,16 +38,16 @@ The asset is `back/cah.jar` (classes + `classes.dex` + texts/service) and `front
 directory (and therefore the front URL) stays stable across versions; the version lives in the tag
 and in `version.properties`.
 
-## TypeScript model codegen (validation-only)
+## TypeScript model codegen
 
 ```bash
 gradle :back:generateTs   # -> front/src/domain/generated/types.ts (from Kotlin serializers)
 ```
 
-`front/src/domain/validate.ts` asserts, at the type level, that the hand-written models in
-`front/src/domain/types.ts` are structurally identical to the generated ones. `vue-tsc` (run by
-`npm run build-front`) checks it, so drift breaks the front build. The hand-written file remains what
-the app imports until parity is proven.
+`front/src/domain/types.ts` re-exports the generated model types and keeps only front-only helpers
+(`CahGamePhase`, `WordCase`, `QuestionPlaceHolder`, `cahPlayerCardsCount`). The generated file is the
+source of truth for the wire model; `npm run build-front` fails if the Kotlin and front models drift
+in shape.
 
 After changing Kotlin models:
 
@@ -57,8 +57,8 @@ git diff --exit-code front/src/domain/generated/types.ts   # CI guard
 npm run build-front
 ```
 
-Known mapped difference: `phase` is a numeric TypeScript enum on the front (`CahGamePhase`) and an
-`Int` in Kotlin, so the comparison excludes that field and asserts the generated type is `number`.
+`phase` is a number on the wire; the front keeps the numeric `CahGamePhase` enum for readable
+constants and comparisons.
 
 ## Front copy TODO
 
