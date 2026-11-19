@@ -1,5 +1,5 @@
-// Generated from Kotlin models by `gradle :back:generateTs`. Do not edit.
-// The hand-written types in ../types.ts are validated against this file.
+// Generated from Kotlin models by the module's generateTs task. Do not edit.
+// The hand-written types in the front are validated against this file.
 
 export interface CahGameSettings {
     id: string
