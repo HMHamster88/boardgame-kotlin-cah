@@ -44,6 +44,9 @@ and in `version.properties`.
 gradle :back:generateTs   # -> front/src/domain/generated/types.ts (from Kotlin serializers)
 ```
 
+Models are discovered via `@GenerateTs` on the Kotlin classes (add `name`/`typeLiteral` when the TS
+name or discriminator differs); the task scans compiled classes, so there is no manual list.
+
 `front/src/domain/types.ts` re-exports the generated model types and keeps only front-only helpers
 (`CahGamePhase`, `WordCase`, `QuestionPlaceHolder`, `cahPlayerCardsCount`). The generated file is the
 source of truth for the wire model; `npm run build-front` fails if the Kotlin and front models drift

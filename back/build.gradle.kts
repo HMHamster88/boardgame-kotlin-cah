@@ -43,14 +43,16 @@ tasks.processResources {
 /** Release artefact: back/module.jar, back/classes.dex (when built on a machine with d8). */
 val moduleJar = tasks.named<Jar>("jar")
 
-/** Generates the front's model types from the Kotlin serializers (validation-only for now). */
+/** Generates the front's model types from the @GenerateTs Kotlin models. */
 val generateTs = tasks.register<JavaExec>("generateTs") {
     group = "codegen"
-    description = "Generates front/src/domain/generated/types.ts from the Kotlin models"
+    description = "Generates front/src/domain/generated/types.ts from the annotated Kotlin models"
     dependsOn(tasks.named("classes"))
     classpath = sourceSets.main.get().runtimeClasspath
     mainClass.set("boardgame.cah.TsExport")
-    args(layout.projectDirectory.file("../front/src/domain/generated/types.ts").asFile.absolutePath)
+    val output = layout.projectDirectory.file("../front/src/domain/generated/types.ts").asFile
+    val classDirs = sourceSets.main.get().output.classesDirs.files
+    args(listOf(output.absolutePath) + classDirs.map { it.absolutePath })
 }
 
 val isWindows = System.getProperty("os.name").lowercase().contains("win")

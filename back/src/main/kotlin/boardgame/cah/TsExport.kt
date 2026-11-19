@@ -1,32 +1,18 @@
 package boardgame.cah
 
-import boardgame.api.codegen.TsTypeSpec
-import boardgame.api.codegen.generateTs
+import boardgame.api.codegen.TsScanner
 import java.io.File
 
 /**
- * Entry point for `:back:generateTs`: writes the TypeScript model types used by the front.
- * Only the models shared with the back are generated; front-only types stay in ../types.ts.
+ * Entry point for `:back:generateTs`: scans the compiled CAH classes for `@GenerateTs` models and
+ * writes the TypeScript types used by the front. Front-only helpers stay in ../types.ts.
  */
 object TsExport {
     @JvmStatic
     fun main(args: Array<String>) {
-        val output = File(args[0])
-        val types = listOf(
-            TsTypeSpec(CahGameSettings.serializer(), "CahGameSettings"),
-            TsTypeSpec(CahPublicPlayerState.serializer(), "CahPublicPlayerState"),
-            TsTypeSpec(PlayerAnswers.serializer(), "PlayerAnswers"),
-            TsTypeSpec(CahStatistics.serializer(), "CahStatistics"),
-            TsTypeSpec(CahPublicGameState.serializer(), "CahGamePublicState"),
-            TsTypeSpec(CahPrivatePlayerState.serializer(), "CahPrivatePlayerState"),
-            TsTypeSpec(CahPrivateGameState.serializer(), "CahGamePrivateState"),
-            TsTypeSpec(SendAnswersAction.serializer(), "CahSendAnswersAction", "CahSendAnswersAction"),
-            TsTypeSpec(VoteForAnswerAction.serializer(), "CahVoteForAnswerAction", "CahVoteForAnswerAction"),
-            TsTypeSpec(DrawCardsAction.serializer(), "CahDrawCardsAction", "CahDrawCardsAction"),
-            TsTypeSpec(EndRoundAction.serializer(), "EndRoundAction", "EndRoundAction")
-        )
-        output.parentFile?.mkdirs()
-        output.writeText(generateTs(types))
-        println("Generated ${output.absolutePath}")
+        val output = File(args.firstOrNull() ?: error("usage: TsExport <output> <classesDir>..."))
+        val classDirs = args.drop(1).map(::File).filter { it.isDirectory }
+        val count = TsScanner.generate(output, classDirs)
+        println("Generated $count types into ${output.absolutePath}")
     }
 }
