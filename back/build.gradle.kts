@@ -109,8 +109,8 @@ val dualJar = tasks.register<Jar>("dualJar") {
 
 /**
  * Game release asset: the back jar plus the built front assets. The file name carries the version
- * (`cah-<version>.zip`); the core strips it when choosing the install directory, so
- * `games-modules/cah/` (and therefore the front URL) stays stable across versions.
+ * (`cah-<version>.zip`); the core installs it as `games-modules/cah/<version>/`, so releases never
+ * overwrite each other and the loader picks the newest.
  */
 val releaseZip = tasks.register<Zip>("releaseZip") {
     group = "release"

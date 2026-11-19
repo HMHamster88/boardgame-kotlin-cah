@@ -61,9 +61,8 @@ gradle :back:releaseZip # same, but assumes front/dist is already built
 ```
 
 The asset is `back/cah.jar` (classes + `classes.dex` + texts/service) and `front/**`, versioned in
-the file name (`cah-<version>.zip`). The core strips the trailing version when choosing the install
-directory, so `games-modules/cah/` (and therefore the front URL) stays stable across versions; the
-version also lives in the release tag and in `version.properties`.
+the file name (`cah-<version>.zip`). It installs as `games-modules/cah/<version>/`, so a new release
+does not overwrite the running one and the core loads the newest version.
 
 IntelliJ IDEA: the shared **Build CAH release** run configuration runs `releaseBuild`.
 
