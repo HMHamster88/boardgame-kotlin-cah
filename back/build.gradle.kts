@@ -127,4 +127,7 @@ val releaseZip = tasks.register<Zip>("releaseZip") {
             "Front build missing at ${file("../front/dist")}. Run `npm run build-front` in the cah repository first."
         }
     }
+    doLast {
+        logger.lifecycle("Release asset: ${archiveFile.get().asFile.absolutePath}")
+    }
 }
