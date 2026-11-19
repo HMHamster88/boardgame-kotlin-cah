@@ -107,9 +107,9 @@ val dualJar = tasks.register<Jar>("dualJar") {
 }
 
 /**
- * Game release asset: the back jar plus the built front assets. The asset is intentionally named
- * `cah.zip` so the core installs it into `games-modules/cah/` (stable directory for the front URL);
- * the version lives in the release tag and in `version.properties`.
+ * Game release asset: the back jar plus the built front assets. The file name carries the version
+ * (`cah-<version>.zip`); the core strips it when choosing the install directory, so
+ * `games-modules/cah/` (and therefore the front URL) stays stable across versions.
  */
 val releaseZip = tasks.register<Zip>("releaseZip") {
     group = "release"
@@ -117,7 +117,7 @@ val releaseZip = tasks.register<Zip>("releaseZip") {
     dependsOn(dualJar)
     // The asset contains front/**, so build it first (root :devFront = generateTs + npm build-front).
     dependsOn(":devFront")
-    archiveFileName.set("cah.zip")
+    archiveFileName.set("cah-${project.version}.zip")
     destinationDirectory.set(layout.buildDirectory.dir("dist"))
     from(layout.buildDirectory.dir("release/back")) { into("back") }
     from(file("../front/dist")) { into("front") }

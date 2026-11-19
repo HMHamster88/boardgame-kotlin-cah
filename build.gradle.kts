@@ -34,6 +34,6 @@ tasks.register("devBuild") {
 /** Release build: front + dual-format game jar (with classes.dex), zipped for a GitHub release. */
 tasks.register("releaseBuild") {
     group = "release"
-    description = "Builds back/build/dist/cah.zip (front, jar and classes.dex)"
+    description = "Builds back/build/dist/cah-<version>.zip (front, jar and classes.dex)"
     dependsOn(":back:releaseZip")
 }

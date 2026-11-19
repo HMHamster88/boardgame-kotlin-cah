@@ -42,14 +42,14 @@ IntelliJ IDEA: the shared **Build CAH (dev)** run configuration (`.idea/runConfi
 ## Release packaging
 
 ```bash
-gradle releaseBuild     # :devFront + :back:releaseZip -> back/build/dist/cah.zip
+gradle releaseBuild     # :devFront + :back:releaseZip -> back/build/dist/cah-<version>.zip
 gradle :back:releaseZip # same, but assumes front/dist is already built
 ```
 
-The asset is `back/cah.jar` (classes + `classes.dex` + texts/service) and `front/**`. It is named
-`cah.zip` on purpose: the core installs a game asset into `games-modules/<asset-name>/`, so the
-directory (and therefore the front URL) stays stable across versions; the version lives in the tag
-and in `version.properties`.
+The asset is `back/cah.jar` (classes + `classes.dex` + texts/service) and `front/**`, versioned in
+the file name (`cah-<version>.zip`). The core strips the trailing version when choosing the install
+directory, so `games-modules/cah/` (and therefore the front URL) stays stable across versions; the
+version also lives in the release tag and in `version.properties`.
 
 IntelliJ IDEA: the shared **Build CAH release** run configuration runs `releaseBuild`.
 
