@@ -41,15 +41,17 @@ IntelliJ IDEA: the shared **Build CAH (dev)** run configuration (`.idea/runConfi
 
 ## Version
 
-`version = "0.1.0"` in `build.gradle.kts` drives the plugin jar name, the `version.properties` inside
-the jar, and the `cah-<version>.zip` release asset. Override it for a release:
+The version is resolved in this order:
 
-```bash
-gradle releaseBuild "-PcahVersion=0.2.0"
-```
+1. `-PcahVersion=…`
+2. `RELEASE_VERSION` environment variable
+3. the latest reachable git tag (`v0.2.0` → `0.2.0`)
+4. default `0.1.0`
 
-The shared **Build CAH release** IDEA configuration passes `-PcahVersion=0.2.0`; update that value
-when bumping the version (or clear it to use the Gradle default).
+Tag the release before building (`git tag v0.2.0 && git push --tags`, or create the release on GitHub
+and run `git fetch --tags`); the **Build CAH release** configuration then produces
+`cah-0.2.0.zip` and `back-0.2.0.jar` with `version.properties = 0.2.0` automatically. Pass
+`-PcahVersion=…` in the run configuration's Arguments field for a one-off override.
 
 ## Release packaging
 
