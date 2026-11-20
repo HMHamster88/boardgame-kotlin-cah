@@ -66,6 +66,18 @@ does not overwrite the running one and the core loads the newest version.
 
 IntelliJ IDEA: the shared **Build CAH release** run configuration runs `releaseBuild`.
 
+## Publishing a release
+
+```bash
+gradle publishRelease                 # latest release
+gradle publishRelease -PghDraft=true  # draft for review
+```
+
+Runs `releaseBuild`, pushes the local `v<version>` tag and creates the GitHub release with generated
+notes and `cah-<version>.zip` as its only asset. Requires `gh` installed/authenticated, a clean tree at
+the tagged commit, and an `origin` remote. Draft releases are not returned by GitHub's latest-release
+endpoint, so the launcher will not pick them up until published.
+
 ## TypeScript model codegen
 
 ```bash
